@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
+	_ "gorm.io/gorm"
 )
 
 type Students struct {
