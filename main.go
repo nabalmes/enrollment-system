@@ -24,9 +24,15 @@ func main() {
 	fmt.Printf("Go to port System: %v%v/\n", BindIP, Port)
 	CreateDB("enrollment_system")
 
-	CreateTable("student_details", "enrollment_system")
+	q := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("student_details", "enrollment_system", q)
+
+	r := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("requirements", "enrollment_system", r)
+
 	Handlers()
 	http.ListenAndServe(Port, nil)
+
 }
 
 func Handlers() {
@@ -61,7 +67,7 @@ func CreateDB(name string) *sql.DB {
 	return db
 }
 
-func CreateTable(table string, name string) *sql.DB {
+func CreateTable(table string, name string, q string) *sql.DB {
 	db, err := sql.Open("mysql", "root:Allen is Great 200%@tcp(127.0.0.1:3306)/")
 	if err != nil {
 		panic(err)
@@ -73,7 +79,7 @@ func CreateTable(table string, name string) *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-	q := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	// q := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
 	// q := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
 	q = strings.Replace(q, "{TABLENAME}", table, -1)
 	// _, err = db.Exec("CREATE TABLE OF NOT EXIST " + table + "(id INT(11) PRIMARY KEY AUT_INCREMENT, first_name varchar(32), Middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32);")
