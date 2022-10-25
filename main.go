@@ -6,9 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/fatih/structs"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/nabalmes/enrollment-system/models"
 	_ "gorm.io/gorm"
 )
 
@@ -18,17 +16,41 @@ const (
 )
 
 func main() {
-	names := structs.Names(&models.Transactions{})
-	fmt.Println(names) // ["Foo", "Bar"]
+	// names := structs.Names(&models.Transactions{})
+	// fmt.Println(names) // ["Foo", "Bar"]
 
 	fmt.Printf("Go to port System: %v%v/\n", BindIP, Port)
 	CreateDB("enrollment_system")
 
-	q := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
-	CreateTable("student_details", "enrollment_system", q)
+	a := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("student_details", "enrollment_system", a)
 
-	r := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
-	CreateTable("requirements", "enrollment_system", r)
+	b := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) NOT NULL, students_id int, PRIMARY KEY (id),FOREIGN KEY (students_id) REFERENCES students(students_id));"
+	CreateTable("requirements", "enrollment_system", b)
+
+	c := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("course", "enrollment_system", c)
+
+	d := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("fees", "enrollment_system", d)
+
+	e := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("grades", "enrollment_system", e)
+
+	f := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("school_year", "enrollment_system", f)
+
+	g := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("subjects", "enrollment_system", g)
+
+	h := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("time_table", "enrollment_system", h)
+
+	i := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("transactions", "enrollment_system", i)
+
+	j := "CREATE TABLE IF NOT EXISTS {TABLENAME} (id INT(11) PRIMARY KEY AUTO_INCREMENT, first_name varchar(32), middle_name varchar(32), last_name varchar(32), Age int(155), Gender varchar(32), address varchar(32), birthday datetime, birth_place varchar(32), status varchar(32), nationality varchar(32), religion varchar(32), mobile_number int(11), email varchar(32));"
+	CreateTable("transaction_line", "enrollment_system", j)
 
 	Handlers()
 	http.ListenAndServe(Port, nil)
