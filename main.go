@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/nabalmes/enrollment-system/views"
 	_ "gorm.io/gorm"
 )
 
@@ -59,9 +60,9 @@ func main() {
 
 func Handlers() {
 	http.Handle("/templates/", http.StripPrefix("/templates", http.FileServer(http.Dir("./templates"))))
-	http.Handle("/static", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
-	// http.HandleFunc("/", views.IndexHandler)
+	http.HandleFunc("/", views.IndexHandler)
 }
 
 func CreateDB(name string) *sql.DB {
